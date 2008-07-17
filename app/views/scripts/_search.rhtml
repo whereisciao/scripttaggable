@@ -1,0 +1,9 @@
+<% if @scripts %>
+  <ul>
+    <% for script in @scripts %>
+      <li>    
+        <%= link_to script.title.slice(0..49), :action => 'show', :id => script %>
+      </li>   
+    <% end %>
+  </ul>
+<% end %>

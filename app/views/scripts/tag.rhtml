@@ -1,0 +1,13 @@
+<p><%= @script.title %>&nbsp;&nbsp;&nbsp; 
+     <%= link_to "next", :action => 'tag', :id => (@script.id + 1) %>
+<% if(@script.id > 1) %>
+     <%= link_to "prev", :action => 'tag', :id => (@script.id - 1) %>
+<% end %>
+
+<% form_tag :action => 'save', :id => @script do %>
+<label for="script_tag_list">Tags</label>
+<%= text_field 'script', 'tag_list' %>
+<%= submit_tag 'save' %>
+<% end %>
+</p>
+<iframe src='<%= @script.file_name.gsub('raw','xref') %>' width='1350' height='1400'/>

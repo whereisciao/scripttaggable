@@ -1,0 +1,51 @@
+<h1>Search Scripts</h1>
+
+Search: <input type="text" id="search_form" name="search" />
+
+<img id="spinner" src="/images/spinner.gif" style="display: none;" />  
+
+<div id="results"></div>
+
+<%= observe_field 'search_form',
+  :frequency => 0.5, 
+  :update => 'results',
+  :url => { :controller => 'scripts', :action=> 'get_results' },
+  :with => "'search_text=' + escape(value)",
+  :loading => "document.getElementById('spinner').style.display='inline'",
+  :loaded => "document.getElementById('spinner').style.display='none'" %>
+</div>
+<br />
+
+<h1>Listing scripts</h1>
+<table>
+  <tr>
+  <th>File Name</th>
+  <th>Source Code</th>
+  </tr>
+  
+<% for script in @scripts %>
+  <tr>
+    <td><%= link_to script.title, :action => 'show', :id => script %></td>
+    <td><%= script.file_name %></td>
+    <td><%= link_to 'Show', :action => 'show', :id => script %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => script %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => script }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @script_pages.current.previous } if @script_pages.current.previous %>
+<%= link_to 'Next page', { :page => @script_pages.current.next } if @script_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New script', :action => 'new' %>
+
+<br />
+
+<%= link_to 'Import scripts', :action => 'list' %>
+
+<h1>Tags</h1>
+<% tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class| %>
+    <%= link_to tag, { :action => 'list_tags', :tag => tag }, :class => css_class %>
+<% end %>

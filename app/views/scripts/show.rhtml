@@ -1,0 +1,21 @@
+<% for column in Script.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @script.send(column.name) %>
+</p>
+<% end %>
+<p>
+  <b>Tags:</b> <%=h @script.tag_list %>
+</p>
+<p>
+  <b>Tables:</b>
+  <ul>
+     <% for table in @tableMap %>
+          <li><%= table.glyph %> </li>
+     <% end %>
+  </ul>
+</p>
+<%= link_to 'Edit', :action => 'edit', :id => @script %> |
+<%= link_to 'Back', :action => 'list' %>
+
+<iframe src='<%= @script.file_name.gsub('raw','xref') %>' width='1300' height='500'/>
+

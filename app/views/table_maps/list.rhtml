@@ -1,0 +1,33 @@
+<h1>Listing table_maps</h1>
+
+<table>
+  <tr>
+  <% for column in TableMap.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for table_map in @table_maps %>
+  <tr>
+  <% for column in TableMap.content_columns %>
+    <td><%=h table_map.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => table_map %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => table_map %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => table_map }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<h2>Table Map</h2>
+<p>
+<% for table in @tables %>
+<%= table.glyph %>
+<% end %>
+</p>
+<%= link_to 'Previous page', { :page => @table_map_pages.current.previous } if @table_map_pages.current.previous %>
+<%= link_to 'Next page', { :page => @table_map_pages.current.next } if @table_map_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New table_map', :action => 'new' %>
